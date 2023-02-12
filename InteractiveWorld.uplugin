@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "InteractiveWorld",
+	"Description": "Create interactive snow,mud,water and foliage area in large world. ",
+	"Category": "Other",
+	"CreatedBy": "Sun BoHeng (LingFeng)",
+	"CreatedByURL": "https://space.bilibili.com/168173226?spm_id_from=333.1007.0.0",
+	"DocsURL": "https://drive.google.com/file/d/1_No3Zl3b8oTNc516S6Qbfk2luc2LOu-d/view?usp=share_link",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/6fef18d187bf4942abad64f2d98a9a73",
+	"SupportURL": "2523355376@qq.com",
+	"EngineVersion": "5.0.0",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "InteractiveWorld",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64"
+				]
+		}
+	]
+}
