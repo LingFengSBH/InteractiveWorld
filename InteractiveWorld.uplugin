@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.0",
+	"VersionName": "1.1",
 	"FriendlyName": "InteractiveWorld",
 	"Description": "Create interactive snow,mud,water and foliage area in large world. ",
 	"Category": "Other",
@@ -20,9 +20,9 @@
 			"Name": "InteractiveWorld",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64"
-				]
+			]
 		}
 	]
 }
