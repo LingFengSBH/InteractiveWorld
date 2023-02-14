@@ -32,6 +32,44 @@ void AWorldInteractVolume::BeginPlay()
  ResetActiveState();
 }
 
+bool AWorldInteractVolume::InteractiveBrushEnter(UInteractBrush* InteractBrush)
+{
+ for (auto DrawingBoard : BindingDrawingBoards)
+ {
+  if (!DrawingBoard)
+  {
+   continue;
+  }
+  if (!InteractBrush->bUseDrawOnlyDrawingBoardsClassList || InteractBrush->DrawOnlyDrawingBoardsClassList.Find(
+   DrawingBoard->GetClass()) != -1)
+  {
+   InteractBrush->EnterArea(this);
+   OverlappingBrushes.AddUnique(InteractBrush);
+   return true;
+  }
+ }
+ return false;
+}
+
+bool AWorldInteractVolume::InteractiveBrushLeave(UInteractBrush* InteractBrush)
+{
+ for (const auto DrawingBoard : BindingDrawingBoards)
+ {
+  if (!DrawingBoard)
+  {
+   continue;
+  }
+  if (!InteractBrush->bUseDrawOnlyDrawingBoardsClassList || InteractBrush->DrawOnlyDrawingBoardsClassList.Find(
+   DrawingBoard->GetClass()) != -1)
+  {
+   InteractBrush->LeaveArea(this);
+   OverlappingBrushes.Remove(InteractBrush);
+  return true;
+  }
+ }
+ return false;
+}
+
 void AWorldInteractVolume::OnActorEnteredArea(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                               UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
                                               const FHitResult& SweepResult)
@@ -40,24 +78,13 @@ void AWorldInteractVolume::OnActorEnteredArea(UPrimitiveComponent* OverlappedCom
  if (GetInteractBrushes(OtherActor, ActorBrushes))
  {
   bool bHasSuitableBrush = false;
-  for (auto InteractBrush : ActorBrushes)
+  for (const auto InteractBrush : ActorBrushes)
   {
-   for (const auto DrawingBoard : BindingDrawingBoards)
-   {
-    if (!DrawingBoard)
-    {
-     continue;
-    }
-    if (!InteractBrush->bUseDrawOnlyDrawingBoardsClassList || InteractBrush->DrawOnlyDrawingBoardsClassList.Find(
-     DrawingBoard->GetClass()) != -1)
-    {
-     bHasSuitableBrush = true;
-     InteractBrush->EnterArea(this);
-     OverlappingBrushes.Add(InteractBrush);
-     break;
-    }
-   }
-  }
+   bHasSuitableBrush |= InteractiveBrushEnter(InteractBrush);
+   //If you write
+   //bHasSuitableBrush = bHasSuitableBrush || InteractiveBrushEnter(InteractBrush);
+   //will cause bugs,because || will not call left function when bHasSuitableBrush equals true.
+  } 
   if (bHasSuitableBrush)
   {
    UpdateDrawingBoardsActive();
@@ -74,21 +101,7 @@ void AWorldInteractVolume::OnActorLeavedArea(UPrimitiveComponent* OverlappedComp
   bool bHasSuitableBrush = false;
   for (const auto InteractBrush : ActorBrushes)
   {
-   for (const auto DrawingBoard : BindingDrawingBoards)
-   {
-    if (!DrawingBoard)
-    {
-     continue;
-    }
-    if (!InteractBrush->bUseDrawOnlyDrawingBoardsClassList || InteractBrush->DrawOnlyDrawingBoardsClassList.Find(
-     DrawingBoard->GetClass()) != -1)
-    {
-     bHasSuitableBrush = true;
-     InteractBrush->LeaveArea(this);
-     OverlappingBrushes.Remove(InteractBrush);
-     break;
-    }
-   }
+   bHasSuitableBrush = bHasSuitableBrush || InteractiveBrushLeave(InteractBrush);
   }
   if (bHasSuitableBrush)
   {
@@ -173,30 +186,35 @@ void AWorldInteractVolume::ResetActiveState()
  bool bHasSuitableBrush = false;
  for (const auto OverlappingActor : OverlappingActors)
  {
-  if (GetInteractBrushes(OverlappingActor, ActorBrushes))
+  GetInteractBrushes(OverlappingActor, ActorBrushes);
+  ActorBrushes.Append(ManualAddingBrushes);
   {
    for (const auto InteractBrush : ActorBrushes)
    {
-    for (const auto DrawingBoard : BindingDrawingBoards)
-    {
-     if (!DrawingBoard)
-     {
-      continue;
-     }
-     if (!InteractBrush->bUseDrawOnlyDrawingBoardsClassList || InteractBrush->DrawOnlyDrawingBoardsClassList.Find(
-      DrawingBoard->GetClass()) != -1)
-     {
-      bHasSuitableBrush = true;
-      InteractBrush->EnterArea(this);
-      OverlappingBrushes.Add(InteractBrush);
-      break;
-     }
-    }
+    bHasSuitableBrush = bHasSuitableBrush || InteractiveBrushEnter(InteractBrush);
    }
   }
   if (bHasSuitableBrush)
   {
    UpdateDrawingBoardsActive();
   }
+ }
+}
+
+void AWorldInteractVolume::ManualInteractBrushEnterArea(UInteractBrush* InteractBrush)
+{
+ if(InteractiveBrushEnter(InteractBrush))
+ {
+  ManualAddingBrushes.AddUnique(InteractBrush);
+  UpdateDrawingBoardsActive();
+ }
+}
+
+void AWorldInteractVolume::ManualInteractBrushLeaveArea(UInteractBrush* InteractBrush)
+{
+ if(InteractiveBrushLeave(InteractBrush))
+ {
+  ManualAddingBrushes.Remove(InteractBrush);
+ UpdateDrawingBoardsActive();
  }
 }

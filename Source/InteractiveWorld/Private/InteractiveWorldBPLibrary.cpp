@@ -16,3 +16,8 @@ void UInteractiveWorldBPLibrary::ResizeRenderTarget2D(UTextureRenderTarget2D* Re
 		RenderTarget2D->ResizeTarget(SizeX,SizeY);
 	}
 }
+
+void UInteractiveWorldBPLibrary::RefreshInteractVolume(AWorldInteractVolume* InteractVolume)
+{
+	InteractVolume->GetOnVolumeShapeChangedDelegate().Broadcast(*InteractVolume);
+}

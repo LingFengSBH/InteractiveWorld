@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "WorldInteractVolume.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "InteractiveWorldBPLibrary.generated.h"
 
@@ -19,4 +20,7 @@ class UInteractiveWorldBPLibrary : public UBlueprintFunctionLibrary
 	//Convert Vector3 to Vector2.Why there are not a FVector.XY?
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Vector3 to Vector2", Keywords = "vector"), Category = "ToolLibrary")
 	static FVector2D Vector3ToVector2(FVector inVector) {return FVector2D(inVector.X,inVector.Y);}
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Refresh Interact Volumes", Keywords = "vector"), Category = "ToolLibrary")
+	static void RefreshInteractVolume(AWorldInteractVolume* InteractVolume);
 };
