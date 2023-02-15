@@ -105,6 +105,8 @@ public:
 	//If we "PrepareForDrawing",but didn't draw successfully,it will be false.
 	UFUNCTION(BlueprintCallable,BlueprintPure,Category = "InteractBrush|Drawing",meta=(DisplayName="Get Last Draw Succeed"))
 	bool GetLastDrawSucceed() const {return bSucceededDrawnLastTime;}
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category = "InteractBrush|Drawing",meta=(DisplayName="Get Current Draw Succeed"))
+	bool GetCurrentDrawSucceed() const {return bSucceededDrawnThisTime;}
 	//Interact Volume//
 	
 	//These Functions are designed for InteractVolume,when this brush enter an InteractVolume,it will be called

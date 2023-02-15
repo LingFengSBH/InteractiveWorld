@@ -43,6 +43,13 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Interactive World Subsystem | Culling")
 	float BrushCullDistance = -1;
 
+	//For Debugging
+	UFUNCTION(BlueprintCallable,Category = "Interactive World Subsystem | Debug",meta=(DisplayName="Get Registered Drawing Boards"))
+	TArray<AWorldDrawingBoard*> GetRegisteredDrawingBoards(){return DrawingBoards;}
+
+	UFUNCTION(BlueprintCallable,Category = "Interactive World Subsystem | Debug",meta=(DisplayName="Get Registered Interact Brushes"))
+	TArray<UInteractBrush*> GetRegisteredInteractBrushes(){return Brushes;}
+	
 private:
 	//Brushes that registered
 	UPROPERTY()
