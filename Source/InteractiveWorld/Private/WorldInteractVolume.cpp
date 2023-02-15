@@ -101,7 +101,7 @@ void AWorldInteractVolume::OnActorLeavedArea(UPrimitiveComponent* OverlappedComp
   bool bHasSuitableBrush = false;
   for (const auto InteractBrush : ActorBrushes)
   {
-   bHasSuitableBrush = bHasSuitableBrush || InteractiveBrushLeave(InteractBrush);
+   bHasSuitableBrush |= InteractiveBrushLeave(InteractBrush);
   }
   if (bHasSuitableBrush)
   {
