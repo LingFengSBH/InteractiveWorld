@@ -52,6 +52,39 @@ Clone this plugin in your "plugins" folder.
 
 Open your project and build plugin.
 
+# TO DO LIST
+## System
+- [ ] Sequencer Support
+  - [X] Allow DrawingBoard follow specific actor 
+  - [X] Manually let Interact Brush enter or leave Interact Volume
+  - [ ] Example Map
+  - [ ] Documentation update
+  
+ - [ ] Scalability Documentation
+   - [ ] Create your own Drawing Board
+   - [ ] Create your own Interact Brush
+ 
+## Drawing Board
+- [ ] Snow
+  - [ ] Add a physics component for snow
+  - [ ] Recreate Snow Material
+
+- [ ] Water
+  - [ ] Add swimming system
+  - [ ] Water cuastic
+  - [ ] New Water Material
+ 
+ - [ ] Foliage
+   - [ ] Direaction of displacement or something
+   - [ ] New foliage mesh
+  
+ - [ ] Mud
+   - [ ] Parrallax mud
+   
+## New Functions
+- [ ] Interactive Fog
+- [ ] N-S Equation Fluid
+
 # Change Log
 ## Version 1.0
 ### 2023.2.11
