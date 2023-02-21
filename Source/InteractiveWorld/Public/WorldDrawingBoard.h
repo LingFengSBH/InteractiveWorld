@@ -44,7 +44,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
+	
 	//Auto Sleep//
 	
 	// If no brush draw on this board in this time,DrawingBoard will not simulate.
