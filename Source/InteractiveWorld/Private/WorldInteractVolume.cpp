@@ -208,6 +208,7 @@ void AWorldInteractVolume::ManualInteractBrushEnterArea(UInteractBrush* Interact
   ManualAddingBrushes.AddUnique(InteractBrush);
   UpdateDrawingBoardsActive();
  }
+  ManualAddingBrushes.AddUnique(InteractBrush);
 }
 
 void AWorldInteractVolume::ManualInteractBrushLeaveArea(UInteractBrush* InteractBrush)
@@ -215,6 +216,7 @@ void AWorldInteractVolume::ManualInteractBrushLeaveArea(UInteractBrush* Interact
  if(InteractiveBrushLeave(InteractBrush))
  {
   ManualAddingBrushes.Remove(InteractBrush);
- UpdateDrawingBoardsActive();
+  UpdateDrawingBoardsActive();
  }
+  ManualAddingBrushes.AddUnique(InteractBrush);
 }
