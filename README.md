@@ -124,4 +124,4 @@ FixBug: Fix wheel draw incorrectly when rotation > 180
 ### 2023.2.25
 Update Interact brush to adapt it to more scenes
 
-
+Add sequencer demo and ocean demo
