@@ -70,6 +70,7 @@ Open your project and build plugin.
   - [ ] Recreate Snow Material
 
 - [ ] Water
+  - [X] Add some new interact moode to adapt ocean surface (instead of line trace)
   - [ ] Add swimming system
   - [ ] Water cuastic
   - [ ] New Water Material
@@ -111,5 +112,16 @@ Add Manual Interact Brush Enter/Leave Interact Volume function.For InteractBrush
 ### 2023.2.15
 Bug fix: Brush doesn't shut off correctly after leaving.
 
-Added a Debug Tool, which can draw debug shapes for Interact Brushes.
+### 2023.2.16
+Added DeBug tool, which can draw debug shapes for InteractBrushes and DrawingBoards.
+
+### 2023.2.17
+FixBug: Wheel draw incorrectly when moving along rotation axis 
+
+### 2023.2.21
+FixBug: Fix wheel draw incorrectly when rotation > 180
+
+### 2023.2.25
+Update Interact brush to adapt it to more scenes
+
 
