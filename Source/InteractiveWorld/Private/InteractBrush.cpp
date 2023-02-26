@@ -130,6 +130,8 @@ void UInteractBrush::BeginPlay()
 	Super::BeginPlay();
 	GetWorld()->GetSubsystem<UInteractiveWorldSubsystem>()->RegisterBrush(this);
 	UpdateActiveState();
+
+	GetOwner()->UpdateOverlaps();
 }
 
 void UInteractBrush::EndPlay(const EEndPlayReason::Type EndPlayReason)

@@ -40,6 +40,7 @@ class INTERACTIVEWORLD_API AWorldInteractVolume : public APhysicsVolume
 	
 	//Get InteractBrushes attached on actor
 	static bool GetInteractBrushes(const AActor* Actor,TArray<UInteractBrush*>& OutBrushes);
+	static bool GetInteractBrushes(const TArray<AActor*> Actors,TArray<UInteractBrush*>& OutBrushes);
 
 	//If there are suitable brushes,then active.If not,then shut off
 	void UpdateDrawingBoardsActive();
@@ -76,3 +77,4 @@ public:
 	void ManualInteractBrushLeaveArea(UInteractBrush* InteractBrush);
 	
 };
+

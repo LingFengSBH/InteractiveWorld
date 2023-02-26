@@ -29,7 +29,10 @@ void AWorldInteractVolume::BeginPlay()
    BindingDrawingBoards.AddUnique(Cast<AWorldDrawingBoard>(FindActor));
   }
  }
- ResetActiveState();
+
+ //Waiting for one frame for all overlapping finished.
+ GetWorldTimerManager().SetTimerForNextTick(this,&AWorldInteractVolume::ResetActiveState);
+ //ResetActiveState();
 }
 
 bool AWorldInteractVolume::InteractiveBrushEnter(UInteractBrush* InteractBrush)
@@ -64,6 +67,7 @@ bool AWorldInteractVolume::InteractiveBrushLeave(UInteractBrush* InteractBrush)
   {
    InteractBrush->LeaveArea(this);
    OverlappingBrushes.Remove(InteractBrush);
+   ManualAddingBrushes.Remove(InteractBrush);
   return true;
   }
  }
@@ -113,6 +117,18 @@ void AWorldInteractVolume::OnActorLeavedArea(UPrimitiveComponent* OverlappedComp
 bool AWorldInteractVolume::GetInteractBrushes(const AActor* Actor, TArray<UInteractBrush*>& OutBrushes)
 {
  Actor->GetComponents<UInteractBrush>(OutBrushes);
+ return OutBrushes.Num() > 0;
+}
+
+bool AWorldInteractVolume::GetInteractBrushes(const TArray<AActor*> Actors, TArray<UInteractBrush*>& OutBrushes)
+{
+ OutBrushes.Empty();
+ TArray<UInteractBrush*> TempBrushes;
+ for (auto& Actor : Actors )
+ {
+  GetInteractBrushes(Actor,TempBrushes);
+  OutBrushes.Append(TempBrushes);
+ }
  return OutBrushes.Num() > 0;
 }
 
@@ -178,45 +194,41 @@ void AWorldInteractVolume::ResetActiveState()
   DrawingBoard->InteractVolumeActive(false, this);
  }
  bVolumeActive = false;
-
+ 
  TArray<AActor*> OverlappingActors;
  GetOverlappingActors(OverlappingActors);
 
  TArray<UInteractBrush*> ActorBrushes;
  bool bHasSuitableBrush = false;
- for (const auto OverlappingActor : OverlappingActors)
+
+ GetInteractBrushes(OverlappingActors, ActorBrushes);
+ ActorBrushes.Append(ManualAddingBrushes);
  {
-  GetInteractBrushes(OverlappingActor, ActorBrushes);
-  ActorBrushes.Append(ManualAddingBrushes);
+  for (const auto InteractBrush : ActorBrushes)
   {
-   for (const auto InteractBrush : ActorBrushes)
-   {
-    bHasSuitableBrush = bHasSuitableBrush || InteractiveBrushEnter(InteractBrush);
-   }
+   bHasSuitableBrush |= InteractiveBrushEnter(InteractBrush);
   }
-  if (bHasSuitableBrush)
-  {
-   UpdateDrawingBoardsActive();
-  }
+ }
+ if (bHasSuitableBrush)
+ {
+  UpdateDrawingBoardsActive();
  }
 }
 
 void AWorldInteractVolume::ManualInteractBrushEnterArea(UInteractBrush* InteractBrush)
 {
+ ManualAddingBrushes.AddUnique(InteractBrush);
  if(InteractiveBrushEnter(InteractBrush))
  {
-  ManualAddingBrushes.AddUnique(InteractBrush);
   UpdateDrawingBoardsActive();
  }
-  ManualAddingBrushes.AddUnique(InteractBrush);
 }
 
 void AWorldInteractVolume::ManualInteractBrushLeaveArea(UInteractBrush* InteractBrush)
 {
+ ManualAddingBrushes.Remove(InteractBrush);
  if(InteractiveBrushLeave(InteractBrush))
  {
-  ManualAddingBrushes.Remove(InteractBrush);
   UpdateDrawingBoardsActive();
  }
-  ManualAddingBrushes.AddUnique(InteractBrush);
 }
