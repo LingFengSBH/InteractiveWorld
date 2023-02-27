@@ -54,11 +54,11 @@ Open your project and build plugin.
 
 # TO DO LIST
 ## System
-- [ ] Sequencer Support
+- [X] Sequencer Support
   - [X] Allow DrawingBoard follow specific actor 
   - [X] Manually let Interact Brush enter or leave Interact Volume
-  - [ ] Example Map
-  - [ ] Documentation update
+  - [X] Example Map
+  - [X] Documentation update
   
  - [ ] Scalability Documentation
    - [ ] Create your own Drawing Board
@@ -72,6 +72,7 @@ Open your project and build plugin.
 - [ ] Water
   - [X] Add some new interact moode to adapt ocean surface (instead of line trace)
   - [ ] Add swimming system
+  - [X] Swimming Example Map
   - [ ] Water cuastic
   - [ ] New Water Material
  
@@ -125,3 +126,16 @@ FixBug: Fix wheel draw incorrectly when rotation > 180
 Update Interact brush to adapt it to more scenes
 
 Add sequencer demo and ocean demo
+
+### 2023.2.26
+Add Simulate Follow Mode for Drawing Board 
+
+Allow set Data Asset for Drawing Board 
+
+Fix bug in WorldInteractVolume which can't add InteractBrushs correctly.
+
+### 2023.2.27
+Update 1.2 version in UE Marketplace.
+
+## Version 1.3
+### Comming Soon
