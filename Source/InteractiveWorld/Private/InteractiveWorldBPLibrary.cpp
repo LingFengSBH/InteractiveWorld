@@ -17,7 +17,10 @@ void UInteractiveWorldBPLibrary::ResizeRenderTarget2D(UTextureRenderTarget2D* Re
 	}
 }
 
+//Editor only!
 void UInteractiveWorldBPLibrary::RefreshInteractVolume(AWorldInteractVolume* InteractVolume)
 {
+#if WITH_EDITOR
 	InteractVolume->GetOnVolumeShapeChangedDelegate().Broadcast(*InteractVolume);
+#endif
 }
