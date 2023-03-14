@@ -85,7 +85,10 @@ Open your project and build plugin.
    
 ## New Functions
 - [ ] Interactive Fog
-- [ ] N-S Equation Fluid
+  - [X] N-S Equation Fluid
+  - [X] Wind fild
+  - [X] Wind source
+  - [X] Demo map
 
 # Change Log
 ## Version 1.0
@@ -138,4 +141,18 @@ Fix bug in WorldInteractVolume which can't add InteractBrushs correctly.
 Update 1.2 version in UE Marketplace.
 
 ## Version 1.3
-### Comming Soon
+### 2023.3.13
+Integration Drawing Board's Material Parameter Collections into one :"MPC_InteractiveWorld"
+
+Added Fluid Drawing Board (N-S Equation), simple version
+
+Wind and Fog demo map!!!
+
+Falling Leaves particle
+
+### 2023.3.14
+Amazing Fog&Wind Demo,Wind source and some good look foliage
+
+Optimize Turbulent, use height to scale radius, which will looks like a sphere
+
+Added a easy-use BP_WorldAffertorComponent
