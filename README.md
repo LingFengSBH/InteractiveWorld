@@ -84,7 +84,7 @@ Open your project and build plugin.
    - [ ] Parrallax mud
    
 ## New Functions
-- [ ] Interactive Fog
+- [X] Interactive Fog
   - [X] N-S Equation Fluid
   - [X] Wind fild
   - [X] Wind source
@@ -97,16 +97,11 @@ Published UE Marketplace.
 
 ## Version 1.1
 ### 2023.2.13
-Add Low Quality options in BP_DrawingBoard_Snow.
-
-Add TargetActor in BP_DrawingBoard,allow customize following actor.Which is useful when using with Sequencer.
-
-Fix Bug:Wheel brush draw mirror-flipped pattern wehen move backward.
-
-Export FreshSnowFallTime parameter in material to BP and Editor Utilities Widget.
-
-Fix Bug:Self Shadow incorrect.
-
+Add Low Quality options in BP_DrawingBoard_Snow.  
+Add TargetActor in BP_DrawingBoard,allow customize following actor.Which is useful when using with Sequencer.  
+Fix Bug:Wheel brush draw mirror-flipped pattern wehen move backward.  
+Export FreshSnowFallTime parameter in material to BP and Editor Utilities Widget.  
+Fix Bug:Self Shadow incorrect.  
 Update 1.1 version in UE Marketplace.
 
 ## Version 1.2
@@ -127,14 +122,11 @@ FixBug: Fix wheel draw incorrectly when rotation > 180
 
 ### 2023.2.25
 Update Interact brush to adapt it to more scenes
-
 Add sequencer demo and ocean demo
 
 ### 2023.2.26
-Add Simulate Follow Mode for Drawing Board 
-
-Allow set Data Asset for Drawing Board 
-
+Add Simulate Follow Mode for Drawing Board.  
+Allow set Data Asset for Drawing Board.  
 Fix bug in WorldInteractVolume which can't add InteractBrushs correctly.
 
 ### 2023.2.27
@@ -142,17 +134,25 @@ Update 1.2 version in UE Marketplace.
 
 ## Version 1.3
 ### 2023.3.13
-Integration Drawing Board's Material Parameter Collections into one :"MPC_InteractiveWorld"
-
-Added Fluid Drawing Board (N-S Equation), simple version
-
-Wind and Fog demo map!!!
-
+Integration Drawing Board's Material Parameter Collections into one :"MPC_InteractiveWorld".  
+Added Fluid Drawing Board (N-S Equation), simple version.  
+Wind and Fog demo map!!!  
 Falling Leaves particle
 
 ### 2023.3.14
-Amazing Fog&Wind Demo,Wind source and some good look foliage
+Amazing Fog&Wind Demo,Wind source and some good look foliage.  
+Optimize Turbulent, use height to scale radius, which will looks like a sphere.  
+Added a easy-use BP_WorldAffertorComponent.
 
-Optimize Turbulent, use height to scale radius, which will looks like a sphere
+### 2023.3.19
+Added Wind Debug tools.  
+Creat Fluid templete emitter.
 
-Added a easy-use BP_WorldAffertorComponent
+### 2023.3.21
+Add Fluid to editor untility widget.  
+Add Drag into Fluid.  
+Optimize recover of Fluid.
+
+### 2023.3.22
+Organized Demo Map, added a portal.  
+Update 1.3 version in UE Marketplace.
