@@ -148,8 +148,7 @@ public:
 	//PixelSizeScale : When bPixelAligned is true,scale pixel size
 	UFUNCTION(BlueprintCallable,Category = "World Drawing Board | Runtime",meta=(DisplayName="Set Canvas World Location"))
 	void SetCanvasWorldLocation(FVector2D NewLocation,bool bPixelAligned,float PixelSizeScale = 1);
-
-
+	
 	//Transform World to Canvas//
 	
 	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="World to Canvas Rotation"), Category="World Drawing Board | World to Canvas")
@@ -170,16 +169,16 @@ public:
 
     //Interact Volume//
 	
-	UFUNCTION(BlueprintCallable,meta=(DisplayName="Reset Use InteractVolume"), Category="World Drawing Board")
+	UFUNCTION(BlueprintCallable,meta=(DisplayName="Reset Use InteractVolume"), Category="World Drawing Board | Interact Volume")
 	void ResetUseInteractVolume(bool NewUseInteractVolume = false);
 	
-	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get Use InteractVolume"), Category="World Drawing Board")
+	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get Use InteractVolume"), Category="World Drawing Board | Interact Volume")
 	bool GetUseInteractVolume() const {return bUseInteractVolume;};
 	
-	UFUNCTION(BlueprintCallable,meta=(DisplayName="Reset InteractVolumes"), Category="World Drawing Board")
+	UFUNCTION(BlueprintCallable,meta=(DisplayName="Reset InteractVolumes"), Category="World Drawing Board | Interact Volume")
 	void ResetInteractVolumes(TArray<AWorldInteractVolume*> NewInteractVolumes);
 
-	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get InteractVolumes"), Category="World Drawing Board")
+	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get InteractVolumes"), Category="World Drawing Board | Interact Volume")
 	TArray<AWorldInteractVolume*> GetInteractVolumes() const {return InteractVolumes;};
 
 	//This if for InteractVolumes to active this drawing board
@@ -210,4 +209,11 @@ public:
 
 	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get Time from Last Draw"), Category="World Drawing Board")
 	float GetTimeFromLastDraw() const {return  TimeFromLastDraw;}
+
+	//RT Draw On
+	UFUNCTION(BlueprintCallable,meta=(DisplayName="Set RT Draw On"), Category="World Drawing Board")
+	void SetRTDrawOn(UTextureRenderTarget2D* NewRT);
+
+	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get RT Draw On"), Category="World Drawing Board")
+	UTextureRenderTarget2D* GetRTDrawOn() const {return RTBrushDrawOn;}
 };

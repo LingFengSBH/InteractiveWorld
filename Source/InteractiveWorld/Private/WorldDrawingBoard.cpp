@@ -238,3 +238,12 @@ bool AWorldDrawingBoard::GetIsSimulating()
 {
 	return GetActiveState() && (SleepTime < 0 || SleepTime >= TimeFromLastDraw);
 }
+
+void AWorldDrawingBoard::SetRTDrawOn(UTextureRenderTarget2D* NewRT)
+{
+	if(!NewRT)
+		return;
+	RTBrushDrawOn = NewRT;
+	RTSize = FVector2d(static_cast<float>(RTBrushDrawOn->SizeX),static_cast<float>(RTBrushDrawOn->SizeY));
+	PixelWorldSize = CanvasWorldSize/RTSize;
+}
