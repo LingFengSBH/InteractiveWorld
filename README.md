@@ -149,10 +149,15 @@ Added Wind Debug tools.
 Creat Fluid templete emitter.
 
 ### 2023.3.21
-Add Fluid to editor untility widget.  
+Add Fluid to editor utility widget.  
 Add Drag into Fluid.  
 Optimize recover of Fluid.
 
 ### 2023.3.22
 Organized Demo Map, added a portal.  
 Update 1.3 version in UE Marketplace.
+
+### 2023.3.23
+To make sure other particles can read velocity of fluid at any time,  seperate input velocity RT and output RT of fluid into two.  
+Added function "Set Draw On RT" in drawing board, which will reset RTSize and PixelWorldSize
+Update 1.3.1 version in UE Marketplace.
