@@ -1,9 +1,9 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.3",
+	"VersionName": "1.3.2",
 	"FriendlyName": "InteractiveWorld",
-	"Description": "Create interactive snow,mud,water and foliage area in large world. ",
+	"Description": "Create interactive snow,mud,water and foliage, wind, fog area in large world. ",
 	"Category": "Other",
 	"CreatedBy": "Sun BoHeng (LingFeng)",
 	"CreatedByURL": "https://space.bilibili.com/168173226?spm_id_from=333.1007.0.0",

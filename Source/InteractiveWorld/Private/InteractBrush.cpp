@@ -7,6 +7,10 @@
 #include "WorldInteractVolume.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/PrimitiveComponent.h"
+
+#include "Logging/TokenizedMessage.h"
+#include "Logging/MessageLog.h"
 #include "Misc/UObjectToken.h"
 
 
