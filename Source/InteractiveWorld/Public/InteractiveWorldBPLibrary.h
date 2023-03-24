@@ -23,4 +23,7 @@ class UInteractiveWorldBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Refresh Interact Volumes", Keywords = "vector"), Category = "ToolLibrary")
 	static void RefreshInteractVolume(AWorldInteractVolume* InteractVolume);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "IW Add Warning", Keywords = "warning"), Category = "ToolLibrary")
+	static void IW_AddWarning(FString Message);
 };

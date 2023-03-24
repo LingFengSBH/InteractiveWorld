@@ -24,3 +24,10 @@ void UInteractiveWorldBPLibrary::RefreshInteractVolume(AWorldInteractVolume* Int
 	InteractVolume->GetOnVolumeShapeChangedDelegate().Broadcast(*InteractVolume);
 #endif
 }
+
+void UInteractiveWorldBPLibrary::IW_AddWarning(FString Message)
+{
+	FMessageLog("PIE").Warning()
+	->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("Interactive World : ")))))
+	->AddToken(FTextToken::Create(FText::FromString(Message)));
+}

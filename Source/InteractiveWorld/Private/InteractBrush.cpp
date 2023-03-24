@@ -7,6 +7,7 @@
 #include "WorldInteractVolume.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Misc/UObjectToken.h"
 
 
 // Sets default values for this component's properties
@@ -131,6 +132,38 @@ void UInteractBrush::BeginPlay()
 	GetWorld()->GetSubsystem<UInteractiveWorldSubsystem>()->RegisterBrush(this);
 	UpdateActiveState();
 
+	//Check whether the Actor this Interact Brush attach to has collision with World Interact Volume
+	auto BrushCollisionWarning = [&]()->void
+	{
+		FMessageLog("PIE").Warning()
+		->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("Interact Brush: ")))))
+		->AddToken(FUObjectToken::Create(this))
+		->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("ISN'T attached to an Actor with Collisitn. Interact Volume will not work with it.")))))
+		->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("Please make Actor: ")))))
+		->AddToken(FUObjectToken::Create(this->GetOwner()))
+		->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("has query collision to 'WorldDynamic'")))));
+	};
+	if(!GetOwner()->GetComponentByClass(UPrimitiveComponent::StaticClass()))
+	{
+		BrushCollisionWarning();
+	}
+
+	TArray<UPrimitiveComponent*> PrimitiveComponents;
+	GetOwner()->GetComponents<UPrimitiveComponent>(PrimitiveComponents);
+	bool bHasCollision = false;
+	for (const auto& Comp : PrimitiveComponents)
+	{
+		if((Comp->GetCollisionEnabled()==ECollisionEnabled::QueryOnly || Comp->GetCollisionEnabled()==ECollisionEnabled::QueryAndPhysics)
+			&& Comp->GetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic)!= ECollisionResponse::ECR_Ignore)
+		{
+			bHasCollision = true;
+			break;
+		}
+	}
+	if (!bHasCollision)
+	{
+		BrushCollisionWarning();
+	}
 	GetOwner()->UpdateOverlaps();
 }
 
