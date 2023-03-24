@@ -59,7 +59,8 @@ protected:
 	//Simulating RT//
 	
 	//The RT that all brush will draw on this frame
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "World Drawing Board | Simulating RT")
+	//Please Use "Set RT Draw On" to set it, and "Get RT Draw On"
+	UPROPERTY()
 	UTextureRenderTarget2D* RTBrushDrawOn;
 
 	//RenderTarget size
