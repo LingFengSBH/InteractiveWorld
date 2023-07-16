@@ -140,6 +140,7 @@ void AWorldDrawingBoard::DrawBrushes(TArray<UInteractBrush*> Brushes, UTextureRe
 	{
 		Brush->PreDrawOnRT(this, CanvasDrawOn, CanvasSize);
 	}
+	DispatchDrawInstances(CanvasDrawOn);
 	UKismetRenderingLibrary::EndDrawCanvasToRenderTarget(this, DrawContext);
 }
 
@@ -246,4 +247,63 @@ void AWorldDrawingBoard::SetRTDrawOn(UTextureRenderTarget2D* NewRT)
 	RTBrushDrawOn = NewRT;
 	RTSize = FVector2d(static_cast<float>(RTBrushDrawOn->SizeX),static_cast<float>(RTBrushDrawOn->SizeY));
 	PixelWorldSize = CanvasWorldSize/RTSize;
+}
+
+void AWorldDrawingBoard::AddBrushInstance(UMaterialInterface* RenderMaterial, FVector2D ScreenPosition,
+	FVector2D ScreenSize, FVector2D CoordinatePosition, FVector2D CoordinateSize, float Rotation, FVector2D PivotPoint, FLinearColor VertexColor)
+{
+	FVector2D Vertex0 = ScreenPosition;
+	FVector2D Vertex1 = ScreenPosition + ScreenSize*FVector2D(1,0);
+	FVector2D Vertex2 = ScreenPosition + ScreenSize*FVector2D(0,1);
+	FVector2D Vertex3 = ScreenPosition + ScreenSize*FVector2D(1,1);
+	const FVector2D DrawPivot = FVector2D(UKismetMathLibrary::Lerp(Vertex0.X,Vertex1.X,PivotPoint.X),UKismetMathLibrary::Lerp(Vertex0.Y,Vertex1.Y,PivotPoint.Y));
+	Vertex0 = UKismetMathLibrary::GetRotated2D(Vertex0 - DrawPivot,Rotation) + DrawPivot;
+	Vertex1 = UKismetMathLibrary::GetRotated2D(Vertex1 - DrawPivot,Rotation) + DrawPivot;
+	Vertex2 = UKismetMathLibrary::GetRotated2D(Vertex2 - DrawPivot,Rotation) + DrawPivot;
+	Vertex3 = UKismetMathLibrary::GetRotated2D(Vertex3 - DrawPivot,Rotation) + DrawPivot;
+
+	FCanvasUVTri Tri0 = FCanvasUVTri();
+	Tri0.V0_Pos = Vertex0;
+	Tri0.V1_Pos = Vertex1;
+	Tri0.V2_Pos = Vertex2;
+	Tri0.V0_UV = CoordinatePosition;
+	Tri0.V1_UV = CoordinatePosition + CoordinateSize*FVector2D(1,0);
+	Tri0.V2_UV = CoordinatePosition + CoordinateSize*FVector2D(0,1);
+	Tri0.V0_Color = VertexColor;
+	Tri0.V1_Color = VertexColor;
+	Tri0.V2_Color = VertexColor;
+
+	FCanvasUVTri Tri1 = FCanvasUVTri();
+	Tri1.V0_Pos = Vertex3;
+	Tri1.V1_Pos = Vertex2;
+	Tri1.V2_Pos = Vertex1;
+	Tri1.V0_UV = CoordinatePosition + CoordinateSize*FVector2D(1,1);
+	Tri1.V1_UV = CoordinatePosition + CoordinateSize*FVector2D(0,1);
+	Tri1.V2_UV = CoordinatePosition + CoordinateSize*FVector2D(1,0);
+	Tri1.V0_Color = VertexColor;
+	Tri1.V1_Color = VertexColor;
+	Tri1.V2_Color = VertexColor;
+	
+	FIWTriangleList& AimTriangleList = TriangleInstancesMap.FindOrAdd(RenderMaterial);
+	AimTriangleList.Triangles.Add(Tri0);
+	AimTriangleList.Triangles.Add(Tri1);
+}
+
+void AWorldDrawingBoard::DispatchDrawInstances(UCanvas* CanvasDrawOn)
+{
+	if (CanvasDrawOn && TriangleInstancesMap.Num()>0)
+	{
+		for (auto& Elem :TriangleInstancesMap)
+		{
+			if (Elem.Key && Elem.Value.Triangles.Num() > 0)
+			{
+				FCanvasTriangleItem TriangleItem(FVector2D::ZeroVector, FVector2D::ZeroVector, FVector2D::ZeroVector, NULL);
+				TriangleItem.MaterialRenderProxy = Elem.Key->GetRenderProxy();
+				UE_LOG(LogTemp,Warning,TEXT("draw instance %d :::%d"),TriangleInstancesMap.Num(),Elem.Value.Triangles.Num() );
+				TriangleItem.TriangleList = MoveTemp(Elem.Value.Triangles);
+				CanvasDrawOn->DrawItem(TriangleItem);
+			}
+		}
+	}
+	TriangleInstancesMap.Empty();
 }

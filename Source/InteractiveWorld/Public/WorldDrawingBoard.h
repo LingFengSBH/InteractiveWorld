@@ -6,6 +6,13 @@
 #include "InteractBrush.h"
 #include "GameFramework/Actor.h"
 #include "WorldDrawingBoard.generated.h"
+USTRUCT()
+
+struct FIWTriangleList
+{
+	GENERATED_BODY()
+	TArray<FCanvasUVTri> Triangles;
+};
 
 UCLASS()
 class INTERACTIVEWORLD_API AWorldDrawingBoard : public AActor
@@ -17,6 +24,10 @@ public:
 	AWorldDrawingBoard();
 
 private:
+	//This map stores triangles that desired to draw as instances
+	UPROPERTY()
+	TMap<UMaterialInterface*,FIWTriangleList> TriangleInstancesMap;
+	
 	//InteractVolumes that make this DrawingBoard stay active
 	UPROPERTY()
 	TArray<AWorldInteractVolume*> ActiveVolumes;
@@ -217,4 +228,11 @@ public:
 
 	UFUNCTION(BlueprintCallable,BlueprintPure,meta=(DisplayName="Get RT Draw On"), Category="World Drawing Board")
 	UTextureRenderTarget2D* GetRTDrawOn() const {return RTBrushDrawOn;}
+
+	//Draw instances
+	UFUNCTION(BlueprintCallable,meta=(DisplayName="Add Brush Instance"), Category="World Drawing Board")
+	void AddBrushInstance(UMaterialInterface* RenderMaterial, FVector2D ScreenPosition, FVector2D ScreenSize, FVector2D CoordinatePosition, FVector2D CoordinateSize=FVector2D::UnitVector, float Rotation=0.f, FVector2D PivotPoint=FVector2D(0.5f,0.5f), FLinearColor VertexColor=FLinearColor::White);
+
+	//Draw instances that stored in TriangleInstancesMap, then clear that.
+	void DispatchDrawInstances(UCanvas* CanvasDrawOn);
 };
