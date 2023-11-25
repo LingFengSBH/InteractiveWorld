@@ -4,8 +4,8 @@
 
 #include "InteractiveWorldSubsystem.h"
 #include "WorldInteractVolume.h"
-#include "Engine/Public/TimerManager.h"
-#include "Engine/Canvas.h"
+#include "Runtime/Engine/Public/TimerManager.h"
+#include "Runtime/Engine/Classes/Engine/Canvas.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetRenderingLibrary.h"
 

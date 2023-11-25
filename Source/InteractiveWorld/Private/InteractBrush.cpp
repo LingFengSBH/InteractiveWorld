@@ -88,7 +88,7 @@ void UInteractBrush::PreDrawOnRT(AWorldDrawingBoard* DrawingBoard, UCanvas* Canv
 		for (int32 i = 1; i < DrawTimes; i++)
 		{
 			DrawOnRT(DrawingBoard, CanvasDrawOn, CanvasSize,
-			         UKismetMathLibrary::Conv_IntToFloat(i) / UKismetMathLibrary::Conv_IntToFloat(DrawTimes), DrawTimes);
+			         UKismetMathLibrary::Conv_IntToDouble(i) / UKismetMathLibrary::Conv_IntToDouble(DrawTimes), DrawTimes);
 		}
 	}
 	DrawOnRT(DrawingBoard, CanvasDrawOn, CanvasSize, 1, 1);
