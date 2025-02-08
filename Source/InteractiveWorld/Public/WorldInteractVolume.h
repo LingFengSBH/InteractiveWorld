@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PhysicsVolume.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 #include "WorldInteractVolume.generated.h"
 
 class UInteractBrush;

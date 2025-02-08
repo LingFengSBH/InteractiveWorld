@@ -27,7 +27,9 @@ void UInteractiveWorldBPLibrary::RefreshInteractVolume(AWorldInteractVolume* Int
 
 void UInteractiveWorldBPLibrary::IW_AddWarning(FString Message)
 {
+#if WITH_EDITOR
 	FMessageLog("PIE").Warning()
 	->AddToken(FTextToken::Create(FText::FromString(FString(TEXT("Interactive World : ")))))
 	->AddToken(FTextToken::Create(FText::FromString(Message)));
+#endif
 }

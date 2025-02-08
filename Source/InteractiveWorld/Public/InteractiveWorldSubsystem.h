@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "Engine/World.h"
 
 #include "InteractBrush.h"
 #include "WorldDrawingBoard.h"

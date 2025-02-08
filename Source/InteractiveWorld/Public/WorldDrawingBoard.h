@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "InteractBrush.h"
 #include "GameFramework/Actor.h"
+#include "Materials/MaterialInterface.h"
 #include "WorldDrawingBoard.generated.h"
 USTRUCT()
 
